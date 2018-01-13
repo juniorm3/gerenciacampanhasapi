@@ -6,7 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -28,9 +29,10 @@ public class Campanha {
 	@JsonInclude(Include.NON_NULL)
 	private Date finalVigencia;
 	
+	@ManyToOne
+	@JoinColumn(name = "TIME_ID")
 	@JsonInclude(Include.NON_NULL)
-	@Transient
-	private TimeCoracao timeCoracao;
+	private Time timeCoracao;
 	
 	public Campanha() {
 		// TODO Auto-generated constructor stub
@@ -72,11 +74,11 @@ public class Campanha {
 		this.finalVigencia = finalVigencia;
 	}
 
-	public TimeCoracao getTimeCoracao() {
+	public Time getTimeCoracao() {
 		return timeCoracao;
 	}
 
-	public void setTimeCoracao(TimeCoracao timeCoracao) {
+	public void setTimeCoracao(Time timeCoracao) {
 		this.timeCoracao = timeCoracao;
 	}
 	
