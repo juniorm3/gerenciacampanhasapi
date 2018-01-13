@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Time {
+public class TimeCoracao {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

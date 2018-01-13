@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.jrm.campanhas.domain.DetalhesErro;
 import com.jrm.campanhas.services.exceptions.CampanhaNaoEncontradaException;
-import com.jrm.campanhas.services.exceptions.TimeExistenteException;
-import com.jrm.campanhas.services.exceptions.TimeNaoEncontradoException;
+import com.jrm.campanhas.services.exceptions.TimeCoracaoExistenteException;
+import com.jrm.campanhas.services.exceptions.TimeCoracaoNaoEncontradoException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {
@@ -28,8 +28,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 
-	@ExceptionHandler(TimeNaoEncontradoException.class)
-	public ResponseEntity<DetalhesErro> handleTimeNaoEncontradoException(TimeNaoEncontradoException e,
+	@ExceptionHandler(TimeCoracaoNaoEncontradoException.class)
+	public ResponseEntity<DetalhesErro> handleTimeNaoEncontradoException(TimeCoracaoNaoEncontradoException e,
 			HttpServletRequest request) {
 		
 		DetalhesErro erro = new DetalhesErro();
@@ -41,8 +41,8 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(erro);
 	}
 	
-	@ExceptionHandler(TimeExistenteException.class)
-	public ResponseEntity<DetalhesErro> handleTimeExistenteException(TimeExistenteException e,
+	@ExceptionHandler(TimeCoracaoExistenteException.class)
+	public ResponseEntity<DetalhesErro> handleTimeExistenteException(TimeCoracaoExistenteException e,
 			HttpServletRequest request) {
 
 		DetalhesErro erro = new DetalhesErro();

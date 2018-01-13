@@ -32,7 +32,7 @@ public class Campanha {
 	@ManyToOne
 	@JoinColumn(name = "TIME_ID")
 	@JsonInclude(Include.NON_NULL)
-	private Time timeCoracao;
+	private TimeCoracao timeCoracao;
 	
 	public Campanha() {
 		// TODO Auto-generated constructor stub
@@ -74,11 +74,11 @@ public class Campanha {
 		this.finalVigencia = finalVigencia;
 	}
 
-	public Time getTimeCoracao() {
+	public TimeCoracao getTimeCoracao() {
 		return timeCoracao;
 	}
 
-	public void setTimeCoracao(Time timeCoracao) {
+	public void setTimeCoracao(TimeCoracao timeCoracao) {
 		this.timeCoracao = timeCoracao;
 	}
 	

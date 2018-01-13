@@ -14,24 +14,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.jrm.campanhas.domain.Time;
-import com.jrm.campanhas.services.TimesServices;
+import com.jrm.campanhas.domain.TimeCoracao;
+import com.jrm.campanhas.services.TimesCoracaoServices;
 
 @RestController
 @RequestMapping("/times")
-public class TimesResources {
+public class TimesCoracaoResources {
 
 	@Autowired
-	private TimesServices timesService;
+	private TimesCoracaoServices timesService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Time>> listar() {
-		List<Time> times = timesService.listar();
+	public ResponseEntity<List<TimeCoracao>> listar() {
+		List<TimeCoracao> times = timesService.listar();
 		return ResponseEntity.status(HttpStatus.OK).body(times);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@RequestBody Time time) {
+	public ResponseEntity<Void> salvar(@RequestBody TimeCoracao time) {
 		time = timesService.salvar(time);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(time.getId()).toUri();
@@ -40,8 +40,8 @@ public class TimesResources {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Time> buscar(@PathVariable("id") Long id) {
-		Time time = timesService.buscar(id);
+	public ResponseEntity<TimeCoracao> buscar(@PathVariable("id") Long id) {
+		TimeCoracao time = timesService.buscar(id);
 		return ResponseEntity.status(HttpStatus.OK).body(time);
 	}
 
