@@ -19,6 +19,8 @@ public class Time {
 
 	private String nome;
 
+	private String nacionalidade;
+
 	@OneToMany(mappedBy = "timeCoracao")
 	@JsonIgnore
 	private List<Campanha> campanhas;
@@ -37,6 +39,14 @@ public class Time {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getNacionalidade() {
+		return nacionalidade;
+	}
+
+	public void setNacionalidade(String nacionalidade) {
+		this.nacionalidade = nacionalidade;
 	}
 
 	public List<Campanha> getCampanhas() {
