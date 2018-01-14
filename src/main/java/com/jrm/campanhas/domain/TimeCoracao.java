@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,9 +22,11 @@ public class TimeCoracao {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty(message = "O campo nome não pose ser vazio.")
 	private String nome;
 
 	@JsonInclude(Include.NON_NULL)
+	@NotNull(message = "Campo nacionalidade é de preenchimento obrigatório")
 	private String nacionalidade;
 
 	@OneToMany(mappedBy = "timeCoracao")

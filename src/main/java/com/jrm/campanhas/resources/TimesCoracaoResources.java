@@ -3,8 +3,12 @@ package com.jrm.campanhas.resources;
 import java.lang.reflect.Method;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,11 +31,14 @@ public class TimesCoracaoResources {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<TimeCoracao>> listar() {
 		List<TimeCoracao> times = timesService.listar();
-		return ResponseEntity.status(HttpStatus.OK).body(times);
+		
+		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+		
+		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(times);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@RequestBody TimeCoracao time) {
+	public ResponseEntity<Void> salvar(@Valid @RequestBody TimeCoracao time) {
 		time = timesService.salvar(time);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(time.getId()).toUri();
@@ -42,7 +49,24 @@ public class TimesCoracaoResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<TimeCoracao> buscar(@PathVariable("id") Long id) {
 		TimeCoracao time = timesService.buscar(id);
-		return ResponseEntity.status(HttpStatus.OK).body(time);
+		
+		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+		
+		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(time);
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> atualizar(@Valid @RequestBody TimeCoracao timeCoracao, @PathVariable("id") Long id){
+		timeCoracao.setId(id);
+		timesService.atualizar(timeCoracao);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
+		timesService.deletar(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }

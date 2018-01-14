@@ -3,6 +3,7 @@ package com.jrm.campanhas.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.jrm.campanhas.domain.TimeCoracao;
@@ -33,11 +34,29 @@ public class TimesCoracaoServices {
 
 	public TimeCoracao buscar(Long id) {
 		TimeCoracao time = timesRepository.findOne(id);
-		
-		if(time == null) {
+
+		if (time == null) {
 			throw new TimeCoracaoNaoEncontradoException("O Time não pode ser encontrado.");
 		}
-		
+
 		return time;
+	}
+
+	public void atualizar(TimeCoracao timeCoracao) {
+		verificarExistencia(timeCoracao);
+		timesRepository.save(timeCoracao);
+	}
+
+	private void verificarExistencia(TimeCoracao timeCoracao) {
+		buscar(timeCoracao.getId());
+	}
+
+	public void deletar(Long id) {
+		try {
+			timesRepository.delete(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new TimeCoracaoNaoEncontradoException("Time não pode ser encontrada.");
+		}
+
 	}
 }

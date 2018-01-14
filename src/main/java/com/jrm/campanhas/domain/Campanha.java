@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,30 +23,19 @@ public class Campanha {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@JsonInclude(Include.NON_NULL)
+
+	@NotEmpty(message = "O campo nome não pose ser vazio.")
 	private String nome;
-	
+
 	@JsonInclude(Include.NON_NULL)
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date inicioVigencia;
-	
-	@JsonInclude(Include.NON_NULL)
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date finalVigencia;
-	
+	@NotNull(message = "Campo vigencia é de preenchimento obrigatório")
+	private Date vigencia;
+
 	@ManyToOne
 	@JoinColumn(name = "TIME_ID")
 	@JsonInclude(Include.NON_NULL)
 	private TimeCoracao timeCoracao;
-	
-	public Campanha() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Campanha(String nome){
-		this.nome = nome;
-	}
 
 	public Long getId() {
 		return id;
@@ -61,20 +53,12 @@ public class Campanha {
 		this.nome = nome;
 	}
 
-	public Date getInicioVigencia() {
-		return inicioVigencia;
+	public Date getVigencia() {
+		return vigencia;
 	}
 
-	public void setInicioVigencia(Date inicioVigencia) {
-		this.inicioVigencia = inicioVigencia;
-	}
-
-	public Date getFinalVigencia() {
-		return finalVigencia;
-	}
-
-	public void setFinalVigencia(Date finalVigencia) {
-		this.finalVigencia = finalVigencia;
+	public void setVigencia(Date vigencia) {
+		this.vigencia = vigencia;
 	}
 
 	public TimeCoracao getTimeCoracao() {
@@ -84,5 +68,5 @@ public class Campanha {
 	public void setTimeCoracao(TimeCoracao timeCoracao) {
 		this.timeCoracao = timeCoracao;
 	}
-	
+
 }
