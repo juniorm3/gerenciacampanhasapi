@@ -28,9 +28,15 @@ public class CampanhasResource {
 	private CampanhasService campanhasService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Campanha>> listar() {		
+	public ResponseEntity<List<Campanha>> listar(){
 		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
 		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(campanhasService.listar());
+	}
+	
+	@RequestMapping(value = "/vigentes",method = RequestMethod.GET)
+	public ResponseEntity<List<Campanha>> listarVigentes() {		
+		CacheControl cacheControl = CacheControl.maxAge(20, TimeUnit.SECONDS);
+		return ResponseEntity.status(HttpStatus.OK).cacheControl(cacheControl).body(campanhasService.listarCampanhasVigentes());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

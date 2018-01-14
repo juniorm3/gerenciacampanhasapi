@@ -26,11 +26,16 @@ public class Campanha {
 
 	@NotEmpty(message = "O campo nome não pose ser vazio.")
 	private String nome;
-
-	@JsonInclude(Include.NON_NULL)
+	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	@NotNull(message = "Campo vigencia é de preenchimento obrigatório")
-	private Date vigencia;
+	@JsonInclude(Include.NON_NULL)	
+	@NotNull(message = "Campo inicioVigencia é de preenchimento obrigatório")
+	private Date inicioVigencia;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonInclude(Include.NON_NULL)	
+	@NotNull(message = "Campo fimVigencia é de preenchimento obrigatório")
+	private Date fimVigencia;
 
 	@ManyToOne
 	@JoinColumn(name = "TIME_ID")
@@ -53,12 +58,20 @@ public class Campanha {
 		this.nome = nome;
 	}
 
-	public Date getVigencia() {
-		return vigencia;
+	public Date getInicioVigencia() {
+		return inicioVigencia;
 	}
 
-	public void setVigencia(Date vigencia) {
-		this.vigencia = vigencia;
+	public void setInicioVigencia(Date inicioVigencia) {
+		this.inicioVigencia = inicioVigencia;
+	}
+
+	public Date getFimVigencia() {
+		return fimVigencia;
+	}
+
+	public void setFimVigencia(Date fimVigencia) {
+		this.fimVigencia = fimVigencia;
 	}
 
 	public TimeCoracao getTimeCoracao() {
@@ -68,5 +81,6 @@ public class Campanha {
 	public void setTimeCoracao(TimeCoracao timeCoracao) {
 		this.timeCoracao = timeCoracao;
 	}
+
 
 }

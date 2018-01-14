@@ -1,6 +1,6 @@
 package com.jrm.campanhas.services;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -19,12 +19,24 @@ public class CampanhasService {
 	@Autowired
 	private CampanhasRepository campanhasRepository;
 	
-	public List<Campanha> listar(){	
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);		
-		Date hoje = new Date(calendar.getTimeInMillis());
+	public List<Campanha> listar(){
+		return campanhasRepository.findAll();
+	}
+	
+	public List<Campanha> listarCampanhasVigentes(){	
+		Calendar local = Calendar.getInstance();
+		local.add(Calendar.DAY_OF_MONTH, -1);
+		Date hoje = new Date(local.getTimeInMillis());
 		
-		return campanhasRepository.findByVigenciaAfter(hoje);
+		List<Campanha> campanhasVigentes = new ArrayList<Campanha>();
+		List<Campanha> campanhas = campanhasRepository.findAll();
+		for(Campanha c : campanhas) {
+			if(c.getFimVigencia().compareTo(hoje) >= 0) {
+				campanhasVigentes.add(c);
+			}
+		}
+		
+		return campanhasVigentes;
 	}
 	
 	public Campanha buscar(Long id) {
@@ -38,8 +50,27 @@ public class CampanhasService {
 	}
 	
 	public Campanha salvar(Campanha campanha) {
-		campanha.setId(null);
+		/*List<Campanha> vigentesNoPeriodo = campanhasRepository.findByfimVigenciaBetween(campanha.getInicioVigencia(), campanha.getFimVigencia());
+		for(Campanha c : vigentesNoPeriodo) {
+			if(c.getId() == campanha.getId()) {
+				continue;
+			}
+		
+			acrescentarDia(c);
+			campanhasRepository.save(c);
+		}*/
+		
+		campanha.setId(null);		
 		return campanhasRepository.save(campanha);		
+	}
+
+	private Campanha acrescentarDia(Campanha c) {
+		Calendar instancia = Calendar.getInstance();
+		instancia.setTime(c.getFimVigencia());
+		instancia.add(Calendar.DATE, 1);
+		Date fim = new Date(instancia.getTimeInMillis());
+		c.setFimVigencia(fim);
+		return c;
 	}
 	
 	public void deletar(Long id) {

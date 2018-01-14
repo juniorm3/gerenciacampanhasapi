@@ -9,5 +9,6 @@ import com.jrm.campanhas.domain.Campanha;
 
 public interface CampanhasRepository extends JpaRepository<Campanha, Long>{
 	
-	public List<Campanha> findByVigenciaAfter(Date hoje);
+	public List<Campanha> findByfimVigenciaBetween(Date inicio, Date fim);
+	
 }
