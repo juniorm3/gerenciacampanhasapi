@@ -1,6 +1,6 @@
 # gerenciacampanhasapi
 Gerenciamento de campanhas
-1) Expor o serviço de Campanha, seguindo as regras de CRUD (Create, Read, Update e Delete). (15 pontos)
+1) Expor o serviço de Campanha, seguindo as regras de CRUD (Create, Read, Update e Delete).
 
 Eu, como usuário, quero administrar os dados da Campanha e fornecer mecanismos (APIs) para INCLUIR, CONSULTAR, ATUALIZAR, DELETAR as 
 campanhas. Para tanto, os critérios de aceite dessa história são:
