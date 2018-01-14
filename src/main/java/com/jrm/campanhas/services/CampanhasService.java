@@ -1,5 +1,8 @@
 package com.jrm.campanhas.services;
 
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +19,12 @@ public class CampanhasService {
 	@Autowired
 	private CampanhasRepository campanhasRepository;
 	
-	public List<Campanha> listar(){
-		 return campanhasRepository.findAll();
+	public List<Campanha> listar(){	
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, -1);		
+		Date hoje = new Date(calendar.getTimeInMillis());
+		
+		return campanhasRepository.findByVigenciaAfter(hoje);
 	}
 	
 	public Campanha buscar(Long id) {
