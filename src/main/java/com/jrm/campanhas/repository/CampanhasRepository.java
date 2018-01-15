@@ -11,4 +11,6 @@ public interface CampanhasRepository extends JpaRepository<Campanha, Long>{
 	
 	public List<Campanha> findByfimVigenciaBetween(Date inicio, Date fim);
 	
+	public List<Campanha> findByfimVigenciaAfter(Date fim);
+	
 }

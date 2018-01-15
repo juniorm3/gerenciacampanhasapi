@@ -1,5 +1,9 @@
 package com.jrm.campanhas.services;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,16 +53,12 @@ public class CampanhasService {
 		return campanha;
 	}
 	
-	public Campanha salvar(Campanha campanha) {
-		/*List<Campanha> vigentesNoPeriodo = campanhasRepository.findByfimVigenciaBetween(campanha.getInicioVigencia(), campanha.getFimVigencia());
+	public Campanha salvar(Campanha campanha) {		
+		List<Campanha> vigentesNoPeriodo = listarCampanhasVigentes();
 		for(Campanha c : vigentesNoPeriodo) {
-			if(c.getId() == campanha.getId()) {
-				continue;
-			}
-		
 			acrescentarDia(c);
-			campanhasRepository.save(c);
-		}*/
+			campanhasRepository.save(c);			
+		}
 		
 		campanha.setId(null);		
 		return campanhasRepository.save(campanha);		
